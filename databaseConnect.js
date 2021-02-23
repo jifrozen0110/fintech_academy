@@ -3,14 +3,13 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '1q2w3e4r',
-  database : 'fintech210222'
+  database : 'fintech210222',
 });
  
 connection.connect();
  
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
+connection.query('SELECT * FROM user;', function (error, results, fields) {
+    console.log(results);
 });
  
 connection.end();
