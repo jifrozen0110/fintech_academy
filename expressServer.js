@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const request = require('request');
 var jwt = require('jsonwebtoken');
-
+var auth = require('./lib/auth');
 
 app.use(express.json());
 //json 타입에 데이터 전송을 허용한다
@@ -27,6 +27,10 @@ app.get('/signup', function(req, res){
 
 app.get('/login', function(req, res){
     res.render('login');
+})
+
+app.get('/authTest', auth, function(req, res){
+    res.send("정상적으로 로그인 하셨다면 해당 화면이 보입니다.");
 })
 
 app.get('/authResult', function(req, res){
