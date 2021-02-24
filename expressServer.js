@@ -13,7 +13,11 @@ app.get('/', function (req, res) {
 
 app.get('/ejs', function (req, res) {
   res.render('ejsTest');
-})  
+})
+
+app.post('/userData', function(req, res){
+    console.log("사용자의 요청이 발생했습니다");
+})
 
 app.get('/user', function (req, res) {
     connection.query('SELECT * FROM user;', function (error, results, fields) {
