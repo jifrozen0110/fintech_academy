@@ -18,26 +18,10 @@ app.get('/', function (req, res) {
   res.send('Hello World');
 })
 
-app.get('/ejs', function (req, res) {
-  res.render('ejsTest');
+app.get('/signup', function(req, res){
+    res.render('signup');
 })
 
-app.get('/designTest', function(req, res){
-    res.render("designSample");
-})
-
-app.post('/userData', function(req, res){
-    console.log("사용자의 요청이 발생했습니다");
-    console.log(req.body);
-    res.send(true);
-})
-
-app.get('/user', function (req, res) {
-    connection.query('SELECT * FROM user;', function (error, results, fields) {
-        console.log(results);
-        res.send(results);
-    });
-})
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
