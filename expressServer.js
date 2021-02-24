@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const request = require('request');
+var jwt = require('jsonwebtoken');
 
 
 app.use(express.json());
@@ -91,7 +92,6 @@ app.post('/login', function(req, res){
             throw err;
         }
         else {
-            console.log(result);
             if(result.length == 0){
                 res.json(3)
             }
@@ -117,7 +117,6 @@ app.post('/login', function(req, res){
                     )            
                 }
                 else {
-
                     res.json(2);
                 }
             }
