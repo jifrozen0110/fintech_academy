@@ -22,7 +22,6 @@ app.get('/signup', function(req, res){
     res.render('signup');
 })
 
-
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
