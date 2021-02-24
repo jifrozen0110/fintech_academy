@@ -27,15 +27,19 @@ app.get('/signup', function(req, res){
 app.get('/authResult', function(req, res){
     var authCode = req.query.code;
     var option = {
-        method : "",
-        url : "",
+        method : "POST",
+        url : "https://testapi.openbanking.or.kr/oauth/2.0/token",
         header : {
             'Content-Type' : 'application/x-www-form-urlencoded'
         },
         form : {
+            code : authCode,
+            client_id : "q7kH44ThJwjpvNRg0BbJvE1yxvx5X53DKz1rNgPF",
+            client_secret : "yVT6irMr2h4ZTHzZY7sDpbvhm1nlOzr4nP7DYRVy",
+            redirect_uri : "http://localhost:3000/authResult",
+            grant_type : "authorization_code"
         }
     }
-
     request(option, function(err, response, body){
         if(err){
             console.error(err);
@@ -44,6 +48,7 @@ app.get('/authResult', function(req, res){
         else {
             var accessRequestResult = JSON.parse(body);
             console.log(accessRequestResult);
+            res.send(accessRequestResult)
         }
     })
 
