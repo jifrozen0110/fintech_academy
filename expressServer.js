@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const request = require('request');
+
 
 app.use(express.json());
 //json 타입에 데이터 전송을 허용한다
@@ -21,6 +23,32 @@ app.get('/', function (req, res) {
 app.get('/signup', function(req, res){
     res.render('signup');
 })
+
+app.get('/authResult', function(req, res){
+    var authCode = req.query.code;
+    var option = {
+        method : "",
+        url : "",
+        header : {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+        },
+        form : {
+        }
+    }
+
+    request(option, function(err, response, body){
+        if(err){
+            console.error(err);
+            throw err;
+        }
+        else {
+            var accessRequestResult = JSON.parse(body);
+            console.log(accessRequestResult);
+        }
+    })
+
+})
+
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
