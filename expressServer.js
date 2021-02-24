@@ -13,8 +13,7 @@ app.get('/', function (req, res) {
 
 app.get('/ejs', function (req, res) {
   res.render('ejsTest');
-})
-  
+})  
 
 app.get('/user', function (req, res) {
     connection.query('SELECT * FROM user;', function (error, results, fields) {
