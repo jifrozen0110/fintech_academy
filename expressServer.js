@@ -39,6 +39,11 @@ app.get('/balance', function(req, res){
     res.render('balance');
 })
 
+app.get('/qrcode', function(req, res){
+    res.render('qrcode');
+})
+
+
 app.get('/authTest', auth, function(req, res){
     res.send("정상적으로 로그인 하셨다면 해당 화면이 보입니다.");
 })
