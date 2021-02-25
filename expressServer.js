@@ -33,6 +33,9 @@ app.get('/main', function(req, res){
     res.render('main');
 })
 
+app.get('/balance', function(req, res){
+    res.render('balance');
+})
 
 app.get('/authTest', auth, function(req, res){
     res.send("정상적으로 로그인 하셨다면 해당 화면이 보입니다.");
@@ -165,6 +168,9 @@ app.post('/list', auth, function(req, res){
         }
     })
 })
+
+app.post('')
+
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
