@@ -169,7 +169,10 @@ app.post('/list', auth, function(req, res){
     })
 })
 
-app.post('')
+app.post('/balance', auth, function(req, res){
+    //사용자 정보 조회
+    //사용자 정보를 바탕으로 request (잔액조회 api) 요청 작성하기
+})
 
 
 var mysql      = require('mysql');
