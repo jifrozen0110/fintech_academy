@@ -4,7 +4,7 @@ const app = express();
 const request = require('request');
 var jwt = require('jsonwebtoken');
 var auth = require('./lib/auth');
-
+var moment = require('moment');
 app.use(express.json());
 //json 타입에 데이터 전송을 허용한다
 app.use(express.urlencoded({ extended: false }));
@@ -178,6 +178,8 @@ app.post('/balance', auth, function(req, res){
     var finusernum = req.body.fin_use_num;
     var countnum = Math.floor(Math.random() * 1000000000) + 1;
     var transId = companyId + countnum;  
+    var transdtime = moment(new Date()).format('YYYYMMDDhhmmss');
+    console.log(transdtime);
     var sql = "SELECT * FROM user WHERE id = ?";
     connection.query(sql,[user.userId], function(err, result){
         if(err) throw err;
@@ -185,12 +187,15 @@ app.post('/balance', auth, function(req, res){
             var dbUserData = result[0];
             console.log(dbUserData);
             var option = {
-                method : "",
-                url : "",
+                method : "GET",
+                url : "https://testapi.openbanking.or.kr/v2.0/account/balance/fin_num",
                 headers : {
                     Authorization : "Bearer " + dbUserData.accesstoken
                 },
                 qs : {
+                    bank_tran_id : transId,
+                    fintech_use_num : finusernum,
+                    tran_dtime : transdtime
                 }
             }
             request(option, function(err, response, body){
