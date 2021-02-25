@@ -126,7 +126,6 @@ app.post('/login', function(req, res){
             }
         }
     })
-
 })
 
 var mysql      = require('mysql');
