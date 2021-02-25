@@ -43,6 +43,10 @@ app.get('/qrcode', function(req, res){
     res.render('qrcode');
 })
 
+app.get('/qrreader', function(req, res){
+    res.render('qrreader');
+})
+
 
 app.get('/authTest', auth, function(req, res){
     res.send("정상적으로 로그인 하셨다면 해당 화면이 보입니다.");
@@ -261,7 +265,9 @@ app.post('/transactionList', auth, function(req, res){
     })
 })
 
-
+app.post('/withdraw', auth, function(req, res){
+    //사용자 출금이체 API 수행하기
+})
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
