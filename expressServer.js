@@ -133,6 +133,28 @@ app.post('/login', function(req, res){
     })
 })
 
+app.post('/list', auth, function(req, res){
+    var option = {
+        method : "",
+        url : "",
+        headers : {
+        },
+        qs : {
+        }
+    }
+    request(option, function(err, response, body){
+        if(err){
+            console.error(err);
+            throw err;
+        }
+        else {
+            var listRequestResult = JSON.parse(body);
+            console.log(listRequestResult);
+            res.json(listRequestResult)
+        }
+    })
+})
+
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
