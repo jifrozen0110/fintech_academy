@@ -212,6 +212,51 @@ app.post('/balance', auth, function(req, res){
     })
 })
 
+app.post('/transactionList', auth, function(req, res){
+    var user = req.decoded;
+    var finusernum = req.body.fin_use_num;
+    var countnum = Math.floor(Math.random() * 1000000000) + 1;
+    var transId = companyId + countnum;  
+    var transdtime = moment(new Date()).format('YYYYMMDDhhmmss');
+    console.log(transdtime);
+    var sql = "SELECT * FROM user WHERE id = ?";
+    connection.query(sql,[user.userId], function(err, result){
+        if(err) throw err;
+        else {
+            var dbUserData = result[0];
+            console.log(dbUserData);
+            var option = {
+                method : "GET",
+                url : "https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num",
+                headers : {
+                    Authorization : "Bearer " + dbUserData.accesstoken
+                },
+                qs : {
+                    bank_tran_id : transId,
+                    fintech_use_num : finusernum,
+                    inquiry_type : 'A',
+                    inquiry_base : 'D',
+                    from_date : '20190101',
+                    to_date : '20190101',
+                    sort_order : 'D',
+                    tran_dtime : transdtime
+                }
+            }
+            request(option, function(err, response, body){
+                if(err){
+                    console.error(err);
+                    throw err;
+                }
+                else {
+                    var transactionListResuult = JSON.parse(body);
+                    res.json(transactionListResuult)
+                }
+            })        
+        }
+    })
+})
+
+
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
