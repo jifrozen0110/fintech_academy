@@ -17,6 +17,8 @@ app.set('view engine', 'ejs');
 //뷰엔진으로 ejs 사용한다 
 
 // connection.end();
+var companyId = "T991599190U";
+
 app.get('/', function (req, res) {
   res.send('Hello World');
 })
@@ -172,6 +174,37 @@ app.post('/list', auth, function(req, res){
 app.post('/balance', auth, function(req, res){
     //사용자 정보 조회
     //사용자 정보를 바탕으로 request (잔액조회 api) 요청 작성하기
+    var user = req.decoded;
+    var finusernum = req.body.fin_use_num;
+    var countnum = Math.floor(Math.random() * 1000000000) + 1;
+    var transId = companyId + countnum;  
+    var sql = "SELECT * FROM user WHERE id = ?";
+    connection.query(sql,[user.userId], function(err, result){
+        if(err) throw err;
+        else {
+            var dbUserData = result[0];
+            console.log(dbUserData);
+            var option = {
+                method : "",
+                url : "",
+                headers : {
+                    Authorization : "Bearer " + dbUserData.accesstoken
+                },
+                qs : {
+                }
+            }
+            request(option, function(err, response, body){
+                if(err){
+                    console.error(err);
+                    throw err;
+                }
+                else {
+                    var balanceRquestResult = JSON.parse(body);
+                    res.json(balanceRquestResult)
+                }
+            })        
+        }
+    })
 })
 
 
