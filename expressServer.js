@@ -267,6 +267,13 @@ app.post('/transactionList', auth, function(req, res){
 
 app.post('/withdraw', auth, function(req, res){
     //사용자 출금이체 API 수행하기
+    console.log(req.body);
+    connection.query(sql,[user.userId], function(err, result){
+        if(err) throw err;
+        else {
+            //requset 출금 이체 Api 요청하기
+        }
+    })
 })
 
 var mysql      = require('mysql');
