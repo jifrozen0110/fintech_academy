@@ -20,7 +20,7 @@ element6 = driver.find_element_by_xpath(
 button = driver.find_element_by_xpath(
     '//*[@id="gnb_tab11"]/div/div[2]/div/div[3]/button')
 
-element.select_by_visible_text("전라남도")
+element.select_by_visible_text("서울특별시")
 driver.implicitly_wait(1)
 element2.select_by_visible_text("고흥군")
 driver.implicitly_wait(1)
