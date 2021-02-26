@@ -268,6 +268,12 @@ app.post('/transactionList', auth, function(req, res){
 app.post('/withdraw', auth, function(req, res){
     //사용자 출금이체 API 수행하기
     console.log(req.body);
+    var user = req.decoded;
+    var sql = "SELECT * FROM user WHERE id = ?";
+    var countnum = Math.floor(Math.random() * 1000000000) + 1;
+    var transId = companyId + countnum;  
+    var transdtime = moment(new Date()).format('YYYYMMDDhhmmss');
+
     connection.query(sql,[user.userId], function(err, result){
         if(err) throw err;
         else {
@@ -280,16 +286,16 @@ app.post('/withdraw', auth, function(req, res){
                     Authorization : "Bearer " + dbUserData.accesstoken
                 },
                 json : {
-                    "bank_tran_id" : "T991599190U000000010",
+                    "bank_tran_id" : transId,
                     "cntr_account_type" : "N",
                     "cntr_account_num" : "7832932596",
                     "dps_print_content": "쇼핑몰환불",
-                    "fintech_use_num": "199159919057870972485182",
+                    "fintech_use_num": req.body.fin_use_num,
                     "wd_print_content": "오픈뱅킹출금",
-                    "tran_amt": "1000",
-                    "tran_dtime": "20201120105100",
+                    "tran_amt": req.body.amount,
+                    "tran_dtime": transdtime,
                     "req_client_name": "홍길동",
-                    "req_client_fintech_use_num" : "199159919057870972485182",
+                    "req_client_fintech_use_num" : req.body.fin_use_num,
                     "req_client_num": "HONGGILDONG1234",
                     "transfer_purpose": "ST",
                     "recv_client_name": "홍길동",
@@ -303,7 +309,7 @@ app.post('/withdraw', auth, function(req, res){
                     throw err;
                 }
                 else {
-                    var transactionListResuult = JSON.parse(body);
+                    var transactionListResuult = body;
                     res.json(transactionListResuult)
                 }
             })        
