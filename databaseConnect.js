@@ -2,10 +2,11 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '1q2w3e4r',
+  password : '*gbiosan1836',
   database : 'fintech210222',
 });
  
+
 connection.connect();
  
 connection.query('SELECT * FROM user;', function (error, results, fields) {
